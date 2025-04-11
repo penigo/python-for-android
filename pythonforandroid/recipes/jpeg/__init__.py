@@ -29,6 +29,7 @@ class JpegRecipe(Recipe):
 
             shprint(sh.rm, '-rf', 'CMakeCache.txt', 'CMakeFiles/')
             shprint(sh.cmake, '-G', 'Unix Makefiles',
+                    '-DCMAKE_POLICY_VERSION_MINIMUM=3.5', # Allows it to build with CMAKE 4.0 on Apple Silicon
                     '-DCMAKE_SYSTEM_NAME=Android',
                     '-DCMAKE_POSITION_INDEPENDENT_CODE=1',
                     '-DCMAKE_ANDROID_ARCH_ABI={arch}'.format(arch=arch.arch),
