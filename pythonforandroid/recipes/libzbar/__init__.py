@@ -29,7 +29,10 @@ class LibZBarRecipe(Recipe):
     def build_arch(self, arch):
         env = self.get_recipe_env(arch)
         with current_directory(self.get_build_dir(arch.arch)):
-            shprint(sh.Command('autoreconf'), '-vif', _env=env)
+            if os.path.isdir('/opt/homebrew/share/gettext/m4'):
+                shprint(sh.Command('autoreconf'), '-vif','--include=/opt/homebrew/share/gettext/m4', _env=env)
+            else:
+                shprint(sh.Command('autoreconf'), '-vif', _env=env)
             shprint(
                 sh.Command('./configure'),
                 '--host=' + arch.command_prefix,
